@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            if (urlParams.has('symb')) {
+                var symb = urlParams.get('symb');
+            } else {
+                var symb = ' ';
+            }
+            var symbOpt = document.getElementById(symb);
+            console.log(symbOpt);
+            att = document.createAttribute("selected");
+            console.log(att);
+            symbOpt.setAttributeNode(att);
+            if (urlParams.has('shar')) {
+                var shar = urlParams.get('shar');
+            } else {
+                var shar = ' ';
+            }
+            var shares = document.getElementById('shares');
+            shares.value = shar;
+        })
+    </script>
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post">
+        <div class="mb-3">
+            <label for="symbol">Choose symbol:</label>
+            <select autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol">
+                {% for symb in mySymbs %}
+                    <option id={{ symb }} value={{ symb }}>{{ symb }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Number of shares" type="number" min="1" step="1" value="1">
+        </div>
+        <button class="btn btn-primary" type="submit">Sell</button>
+    </form>
+{% endblock %}

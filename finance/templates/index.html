@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div style="overflow-x:auto;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Symbol
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Shares
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for holding in myShareholdings %}
+                    <tr>
+                        <td>
+                            {{ holding["symbol"] }}
+                        </td>
+                        <td>
+                            {{ holding["name"] }}
+                        </td>
+                        <td>
+                            {{ holding["sharesNo"] }}
+                        </td>
+                        <td>
+                            {{ holding["price"] }}
+                        </td>
+                        <td>
+                            {{ holding["total"] | usd }}
+                        </td>
+                        <td>
+                            <form action="/buy" method="get">
+                                <input id="symbb" name="symb" type="hidden" value={{ holding["symbol"] }}>
+                                <button class="btn btn-primary" type="submit">Buy</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/sell" method="get">
+                                <input id="symb" name="symb" type="hidden" value={{ holding["symbol"] }}>
+                                <input id="shar" name="shar"type="hidden" value={{ holding["sharesNo"] }}>
+                                <button class="btn btn-primary" type="submit">Sell</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <th>
+                        Cash
+                    </th>
+                    <td>
+                        {{ cash  | usd}}
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <th>
+                        TOTAL
+                    </th>
+                    <td>
+                        {{ gt | usd }}
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

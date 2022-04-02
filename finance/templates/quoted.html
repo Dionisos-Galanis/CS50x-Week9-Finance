@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Symbol" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Quote</button>
+    </form>
+    <p id = "result" onload="setsymb()">
+        A share of {{quote.name}} ({{quote.symbol}}) costs {{quote.price | usd}}.
+    </p>
+    <form action="/buy" method="get">
+        <input type="hidden" name="symb" value={{quote.symbol}}>
+        <button class="btn btn-primary" type="submit">Purchase</button>
+    </form>
+{% endblock %}
